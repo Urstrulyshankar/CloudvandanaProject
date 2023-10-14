@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: silver;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 0;
+            max-width: 300px;
+            margin: 50px auto;
+        }
+
+        input {
+            grid-column: span 3;
+            padding: 10px;
+            font-size: 18px;
+            background-color: white;
+            color: black;
+            border: none;
+            outline: none;
+        }
+
+        .btn {
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background-color: black;
+            color: white;
+        }
+
+        .btn.operator {
+            background-color: rgb(116, 114, 114);
+            color: white;
+        }
+
+        .btn.clear {
+            background-color: rgb(30, 155, 147);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" id="input" readonly>
+        <button class="btn clear" onclick="clearInput()">AC</button>
+        <button class="btn" onclick="appendValue('9')">9</button>
+        <button class="btn" onclick="appendValue('8')">8</button>
+        <button class="btn" onclick="appendValue('7')">7</button>
+        <button class="btn operator" onclick="setOperator('+')">+</button>
+        <button class="btn" onclick="appendValue('4')">4</button>
+        <button class="btn" onclick="appendValue('5')">5</button>
+        <button class="btn" onclick="appendValue('6')">6</button>
+        <button class="btn operator" onclick="setOperator('-')">-</button>
+        <button class="btn" onclick="appendValue('1')">1</button>
+        <button class="btn" onclick="appendValue('2')">2</button>
+        <button class="btn" onclick="appendValue('3')">3</button>
+        <button class="btn operator" onclick="setOperator('/')">÷</button>
+        <button class="btn" onclick="appendValue('.')">.</button>
+        <button class="btn" onclick="appendValue('0')">0</button>
+        <button class="btn" onclick="calculateResult()">=</button>
+        <button class="btn operator" onclick="setOperator('*')">x</button>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let operator = '';
+        let firstOperand = '';
+
+        function appendValue(value) {
+            currentInput += value;
+            document.getElementById('input').value = currentInput;
+        }
+
+        function setOperator(op) {
+            if (currentInput !== '') {
+                operator = op;
+                firstOperand = currentInput;
+                currentInput += op;
+                document.getElementById('input').value = currentInput;
+            }
+        }
+
+        function calculateResult() {
+            if (operator && firstOperand !== '' && currentInput !== '') {
+                let result = 0;
+                const num1 = parseFloat(firstOperand);
+                const num2 = parseFloat(currentInput.slice(firstOperand.length + 1));
+
+                switch (operator) {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    case '/':
+                        if (num2 !== 0) {
+                            result = num1 / num2;
+                        } else {
+                            alert('Cannot divide by zero!');
+                            clearInput();
+                            return;
+                        }
+                        break;
+                }
+
+                document.getElementById('input').value = `${firstOperand}${operator}${num2}=${result}`;
+                currentInput = result.toString();
+                operator = '';
+                firstOperand = '';
+            }
+        }
+
+        function clearInput() {
+            currentInput = '';
+            operator = '';
+            firstOperand = '';
+            document.getElementById('input').value = '';
+        }
+    </script>
+</body>
+
+</html>
