@@ -1,5 +1,10 @@
 # CloudvandanaProject
 1.PangramChecker.java 2.RomanToInteger.java 3.ShuffleArray.java 4.calculator.html 5.sortNumbers.js 6.surveyForm.html 7.wordReversal.js
+
+
+
+
+
 1.--->PangramChecker.java: Implements a Java program to determine if a given string is a pangram, checking for the presence of all letters in the alphabet.
 
 2.--->RomanToInteger.java: Converts Roman numerals to integers using a Java program, applying logic to sum the corresponding values of the symbols.
